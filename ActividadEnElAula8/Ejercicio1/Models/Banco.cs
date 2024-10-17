@@ -32,7 +32,12 @@ namespace Ejercicio1.Models
         {
             get
             {
+                if (CantidadCuentas > idx && idx > 0)
+                {
+                    return cuentas[idx];
+                }
                 return cuentas[idx];
+                //throw new IndexOutOfRangeException();
             }
         }
         #endregion
@@ -42,16 +47,22 @@ namespace Ejercicio1.Models
         {
             Cuenta c;
             Persona p = new Persona(dni, nombre);
+            if (clientes == null)
+            {
+                clientes.Add(p);
+            }
             clientes.Sort();
             int idx = clientes.BinarySearch(p);
             if (idx >= 0)
             {
                 c = new Cuenta(num, p);
+                cuentas.Add(c);
             }
             else
             {
                 clientes.Add(p);
                 c = new Cuenta(num, p);
+                cuentas.Add(c);
             }
             return c;
         }
