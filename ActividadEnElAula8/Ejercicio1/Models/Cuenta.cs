@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Ejercicio1.Models
 {
+    [Serializable]
     public class Cuenta : IComparable
     {
         #region Propiedades de la cuenta
         public int Numero { get; set; }
         public double Saldo { get; set; }
-        public DateTime Fecha { get; private set; }
+        public DateTime Fecha { get; set; }
         public Persona Titular { get; set; }
         #endregion
         #region Constructores

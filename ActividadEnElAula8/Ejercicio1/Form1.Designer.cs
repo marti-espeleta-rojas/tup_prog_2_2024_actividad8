@@ -67,6 +67,7 @@
             this.btnBackup.TabIndex = 2;
             this.btnBackup.Text = "4- Resguardar (Backup)";
             this.btnBackup.UseVisualStyleBackColor = true;
+            this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
             // 
             // btnExportarCuentas
             // 
@@ -88,6 +89,7 @@
             this.btnRestaurar.TabIndex = 4;
             this.btnRestaurar.Text = "5- Restaurar (Restore)";
             this.btnRestaurar.UseVisualStyleBackColor = true;
+            this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
             // 
             // lbxVer
             // 
@@ -110,6 +112,8 @@
             this.Controls.Add(this.btnVerCuentas);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }

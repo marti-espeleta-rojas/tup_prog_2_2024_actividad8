@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ejercicio1.Models
 {
+    [Serializable]
     public class Banco
     {
         #region Propiedades y relaciones de clases
@@ -45,7 +46,7 @@ namespace Ejercicio1.Models
         #region Métodos de la clase
         public Cuenta AgregarCuenta(int num, int dni, string nombre)
         {
-            Cuenta c;
+            Cuenta c = null;
             Persona p = new Persona(dni, nombre);
             if (clientes == null)
             {
@@ -56,14 +57,19 @@ namespace Ejercicio1.Models
             if (idx >= 0)
             {
                 c = new Cuenta(num, p);
-                cuentas.Add(c);
             }
             else
             {
                 clientes.Add(p);
                 c = new Cuenta(num, p);
-                cuentas.Add(c);
             }
+            cuentas.Add(c);
+            return c;
+        }
+
+        public Cuenta AgregarCuenta(Cuenta c)
+        {
+            cuentas.Add(c);
             return c;
         }
 
@@ -79,10 +85,25 @@ namespace Ejercicio1.Models
             return cuentas[idx];
         }
 
+        public Persona VerCuentaPorDni(int dni)
+        {
+            Persona cli = new Persona(dni, "");
+            clientes.Sort();
+            int idx = clientes.BinarySearch(cli);
+            if (idx >= 0)
+            {
+                return clientes[idx];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public bool RestaurarCuenta(int numero, double saldo, DateTime fecha, Persona titular)
         {
             Cuenta cuenta = VerCuentaPorNumero(numero);
-            if (cuenta==null)
+            if (cuenta == null)
             {
                 cuenta = new Cuenta(numero, saldo, fecha, titular);
                 cuentas.Add(cuenta);
@@ -90,7 +111,10 @@ namespace Ejercicio1.Models
             }
             else
             {
-                cuentas.Add(cuenta);
+                cuenta.Saldo = saldo;
+                cuenta.Fecha = fecha;
+                cuenta.Numero = numero;
+                cuenta.Titular = titular;
                 return true;
             }
         }

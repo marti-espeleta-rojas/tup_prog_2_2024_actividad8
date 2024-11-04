@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ejercicio1.Models
 {
-    public class Persona : IComparable
+    [Serializable]
+    public class Persona : IComparable<Persona>
     {
         #region Propiedades
         public int DNI { get; set; }
@@ -20,9 +21,8 @@ namespace Ejercicio1.Models
             DNI = dni; 
         }
         #endregion
-        public int CompareTo(object obj)
+        public int CompareTo(Persona p)
         {
-            Persona p = obj as Persona;
             if (p != null)
             {
                 return DNI.CompareTo(p.DNI);
@@ -32,7 +32,7 @@ namespace Ejercicio1.Models
 
         public override string ToString()
         {
-            return $"{DNI} - {Nombre}";
+            return $"{DNI} {Nombre}";
         }
     }
 }
